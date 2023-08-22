@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 // import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 // let age =30;
 // const App = () => {
@@ -150,38 +150,66 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 //   },
 // });
 // const Tab = createBottomTabNavigator();
-const Tab=createMaterialTopTabNavigator();
+// const Tab=createMaterialTopTabNavigator();
+// const App = () => {
+//   return (
+
+//     <NavigationContainer >
+//       <Tab.Navigator>
+//         <Tab.Screen name='Login' component={Login}></Tab.Screen>
+//         <Tab.Screen name='SignUp' component={SignUp}></Tab.Screen>
+//         <Tab.Screen name='OTHET' component={SignUp}></Tab.Screen>
+
+//       </Tab.Navigator>
+//     </NavigationContainer>
+//   );
+// };
+
+// const Login = () => {
+//   return (
+//     <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
+
+//       <Text style={{fontSize:30}}>LOGIN</Text>
+//     </View>
+//   );
+// };
+
+// const SignUp = () => {
+//   return (
+//     <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
+//       <Text style={{fontSize:30}}>SignUp</Text>
+//     </View>
+//   );
+// };
+
 const App = () => {
+  const [data, setData] = useState(undefined);
+
+  const getAPIdata = async () => {
+    const URL = 'https://jsonplaceholder.typicode.com/posts/1';
+    let result = await fetch(URL);
+    result = await result.json();
+    setData(result);
+    // console.warn(result);
+  };
+
+  useEffect(() => {
+    getAPIdata();
+  }, []);
   return (
-    
-    <NavigationContainer >
-      <Tab.Navigator>
-        <Tab.Screen name='Login' component={Login}></Tab.Screen>
-        <Tab.Screen name='SignUp' component={SignUp}></Tab.Screen>
-        <Tab.Screen name='OTHET' component={SignUp}></Tab.Screen>
+    <View>
+      <Text style={{fontSize: 30}}>API CALL</Text>
+
+      {data ? (
+        <View>
+          <Text>{data.id}</Text>
+          <Text>{data.userId}</Text>
+          <Text>{data.title}</Text>
 
 
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-};
-
-const Login = () => {
-  return (
-    <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-              
-
-      <Text style={{fontSize:30}}>LOGIN</Text>
+        </View>
+      ) : null}
     </View>
   );
 };
-
-const SignUp = () => {
-  return (
-    <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-      <Text style={{fontSize:30}}>SignUp</Text>
-    </View>
-  );
-};
-
 export default App;
