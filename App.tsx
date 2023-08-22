@@ -3,7 +3,9 @@ import CompanyData from './components/CompanyData';
 import React, {useState, useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 // let age =30;
 // const App = () => {
 //   const users=[{
@@ -147,13 +149,17 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 //     justifyContent: 'center',
 //   },
 // });
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Tab=createMaterialTopTabNavigator();
 const App = () => {
   return (
-    <NavigationContainer>
+    
+    <NavigationContainer >
       <Tab.Navigator>
         <Tab.Screen name='Login' component={Login}></Tab.Screen>
-        <Tab.Screen name='SinUp' component={SignUp}></Tab.Screen>
+        <Tab.Screen name='SignUp' component={SignUp}></Tab.Screen>
+        <Tab.Screen name='OTHET' component={SignUp}></Tab.Screen>
+
 
       </Tab.Navigator>
     </NavigationContainer>
@@ -163,6 +169,8 @@ const App = () => {
 const Login = () => {
   return (
     <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
+              
+
       <Text style={{fontSize:30}}>LOGIN</Text>
     </View>
   );
