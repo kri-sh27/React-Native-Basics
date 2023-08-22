@@ -1,10 +1,18 @@
-import {Text, View, Button, StyleSheet, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  ActivityIndicator,
+  FlatList,
+} from 'react-native';
 import CompanyData from './components/CompanyData';
 import React, {useState, useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 // import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 // let age =30;
 // const App = () => {
@@ -182,34 +190,65 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 //   );
 // };
 
-const App = () => {
-  const [data, setData] = useState(undefined);
+// const App = () => {
+//   const [data, setData] = useState(undefined);
 
-  const getAPIdata = async () => {
-    const URL = 'https://jsonplaceholder.typicode.com/posts/1';
-    let result = await fetch(URL);
+//   const getAPIdata = async () => {
+//     const URL = 'https://jsonplaceholder.typicode.com/posts/1';
+//     let result = await fetch(URL);
+//     result = await result.json();
+//     setData(result);
+//     // console.warn(result);
+//   };
+
+//   useEffect(() => {
+//     getAPIdata();
+//   }, []);
+//   return (
+//     <View>
+//       <Text style={{fontSize: 30}}>API CALL</Text>
+
+//       {data ? (
+//         <View>
+//           <Text>{data.id}</Text>
+//           <Text>{data.userId}</Text>
+//           <Text>{data.title}</Text>
+
+//         </View>
+//       ) : null}
+//     </View>
+//   );
+// };
+
+const App = () => {
+  const [data, setData] = useState([]);
+  const getAPIData = async () => {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    let result = await fetch(url);
     result = await result.json();
     setData(result);
-    // console.warn(result);
   };
-
   useEffect(() => {
-    getAPIdata();
-  }, []);
+    getAPIData();
+  });
   return (
     <View>
-      <Text style={{fontSize: 30}}>API CALL</Text>
+      <Text style={{fontSize: 30}}>FlatList with Api</Text>
+      {data.length ? 
+        <FlatList
+          data={data}
+          renderItem={({item}) => 
+            <View>
+              <Text style={{fontSize: 30}}>{item.id}</Text>
+              <Text style={{fontSize: 20}}>{item.title}</Text>
+              <Text style={{fontSize: 20}}>{item.userId}</Text>
 
-      {data ? (
-        <View>
-          <Text>{data.id}</Text>
-          <Text>{data.userId}</Text>
-          <Text>{data.title}</Text>
-
-
-        </View>
-      ) : null}
+            </View>
+          }
+        />
+       : null}
     </View>
   );
 };
+
 export default App;
